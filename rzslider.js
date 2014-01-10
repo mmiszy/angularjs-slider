@@ -40,21 +40,21 @@ function throttle(func, wait, options) {
   };
   return function() {
     var now = getTime();
-    if (!previous && options.leading === false) previous = now;
+    if( ! previous && options.leading === false) previous = now;
     var remaining = wait - (now - previous);
     context = this;
     args = arguments;
-    if (remaining <= 0) {
+    if(remaining <= 0) {
       clearTimeout(timeout);
       timeout = null;
       previous = now;
       result = func.apply(context, args);
       context = args = null;
-    } else if (!timeout && options.trailing !== false) {
+    } else if( ! timeout && options.trailing !== false) {
       timeout = setTimeout(later, remaining);
     }
     return result;
-  }
+  };
 })
 
 .factory('Slider', ['$timeout', '$document', 'throttle', function($timeout, $document, throttle)
@@ -464,6 +464,21 @@ function throttle(func, wait, options) {
       this.updateCmbLabel();
     },
 
+    adjustObjectPositionByBoundaries: function(basePosition, objectWidth)
+    {
+      if(basePosition + objectWidth > this.barWidth) {
+        basePosition -= basePosition + objectWidth - this.barWidth;
+      }
+
+      return Math.max(0, basePosition);
+    },
+
+    calculateLabelPosition: function(label, newOffset)
+    {
+      var basePosition = newOffset - label.rzsw / 2 + this.handleHalfWidth;
+      return this.adjustObjectPositionByBoundaries(basePosition, label.rzsw);
+    },
+
     /**
      * Update low slider handle position and label
      *
@@ -474,7 +489,7 @@ function throttle(func, wait, options) {
     {
       this.setLeft(this.minH, newOffset);
       this.translateFn(this.scope.rzSliderModel, this.minLab);
-      this.setLeft(this.minLab, newOffset - this.minLab.rzsw / 2 + this.handleHalfWidth);
+      this.setLeft(this.minLab, this.calculateLabelPosition(this.minLab, newOffset));
 
       this.shFloorCeil();
     },
@@ -489,7 +504,7 @@ function throttle(func, wait, options) {
     {
       this.setLeft(this.maxH, newOffset);
       this.translateFn(this.scope.rzSliderHigh, this.maxLab);
-      this.setLeft(this.maxLab, newOffset - this.maxLab.rzsw / 2 + this.handleHalfWidth);
+      this.setLeft(this.maxLab, this.calculateLabelPosition(this.maxLab, newOffset));
 
       this.shFloorCeil();
     },
@@ -582,7 +597,11 @@ function throttle(func, wait, options) {
         }
 
         this.translateFn(lowTr + ' - ' + highTr, this.cmbLab, false);
-        this.setLeft(this.cmbLab, this.selBar.rzsl + this.selBar.rzsw / 2 - this.cmbLab.rzsw / 2);
+        var position = this.selBar.rzsl + this.selBar.rzsw / 2 - this.cmbLab.rzsw / 2;
+        position = this.adjustObjectPositionByBoundaries(
+          position,
+          this.cmbLab.rzsw);
+        this.setLeft(this.cmbLab, position);
         this.hideEl(this.minLab);
         this.hideEl(this.maxLab);
         this.showEl(this.cmbLab);
@@ -635,7 +654,7 @@ function throttle(func, wait, options) {
     /**
      * Set element left offset
      *
-     * @param {jqLite} elem The jqLite wrapped DOM element
+     * @param {jqLite} elem  The jqLite wrapped DOM element
      * @param {number} left
      * @returns {number}
      */
@@ -662,7 +681,7 @@ function throttle(func, wait, options) {
     /**
      * Set element width
      *
-     * @param {jqLite} elem  The jqLite wrapped DOM element
+     * @param {jqLite} elem The jqLite wrapped DOM element
      * @param {number} width
      * @returns {*}
      */
@@ -705,10 +724,14 @@ function throttle(func, wait, options) {
     bindEvents: function()
     {
       this.minH.on('mousedown', angular.bind(this, this.onStart, this.minH, 'rzSliderModel'));
-      if(this.range) { this.maxH.on('mousedown', angular.bind(this, this.onStart, this.maxH, 'rzSliderHigh')) }
+      if(this.range) {
+        this.maxH.on('mousedown', angular.bind(this, this.onStart, this.maxH, 'rzSliderHigh'));
+      }
 
       this.minH.on('touchstart', angular.bind(this, this.onStart, this.minH, 'rzSliderModel'));
-      if(this.range) { this.maxH.on('touchstart', angular.bind(this, this.onStart, this.maxH, 'rzSliderHigh')) }
+      if(this.range) {
+        this.maxH.on('touchstart', angular.bind(this, this.onStart, this.maxH, 'rzSliderHigh'));
+      }
     },
 
     /**
@@ -785,10 +808,12 @@ function throttle(func, wait, options) {
 
       newValue = this.offsetToValue(newOffset);
       newValue = this.roundStep(newValue);
+      // Adjusts the offset by the rounded value;
+      newOffset = this.valueToOffset(newValue);
 
-      if (this.range)
+      if(this.range)
       {
-        if (this.tracking === 'rzSliderModel' && newValue >= this.scope.rzSliderHigh)
+        if(this.tracking === 'rzSliderModel' && newValue >= this.scope.rzSliderHigh)
         {
           this.scope[this.tracking] = this.scope.rzSliderHigh;
           this.updateHandles(this.tracking, this.maxH.rzsl);
@@ -846,7 +871,7 @@ function throttle(func, wait, options) {
 .directive('rzslider', ['Slider', function(Slider)
 {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     scope: {
       rzSliderFloor: '=?',
       rzSliderCeil: '=?',
