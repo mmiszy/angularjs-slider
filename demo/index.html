@@ -1,89 +1,85 @@
 <!DOCTYPE html>
 <html ng-app="plunker">
+    <head>
+        <meta charset="utf-8" />
+        <title>AngularJS Slider Plunker</title>
+        <link rel="stylesheet" href="../dist/angularjs-slider.css" />
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../angularjs-slider.js"></script>
+    </head>
+    <body ng-controller="MainCtrl">
+        <div style="margin-left: 40px; margin-right: 50px; padding: 30px;">
+            <pre>{{ priceSlider | json }}</pre>
 
-<head>
-    <meta charset="utf-8" />
-    <title>AngularJS Slider Plunker</title>
-    <link rel="stylesheet" href="../dist/rzslider.css" />
-    <script src="../bower_components/angular/angular.min.js"></script>
-    <script src="../rzslider.js"></script>
-</head>
+            <input type="text" ng-model="priceSlider.min"/><br/>
+            <input type="text" ng-model="priceSlider.max"/><br/>
 
-<body ng-controller="MainCtrl">
+            <br/>
 
-<div style="background-color: #808080;margin-left: 40px;margin-right: 50px; padding: 30px;">
-    <pre>{{ priceSlider | json }}</pre>
+            <div rz-slider
+                floor="priceSlider.floor"
+                ceil="priceSlider.ceil"
+                model="priceSlider.min"
+                high="priceSlider.max"
+                step="1"></div>
+            <br> <br> <br>
 
-    <input type="text" ng-model="priceSlider.min"/><br/>
-    <input type="text" ng-model="priceSlider.max"/><br/>
+            <pre>{{ priceSlider2 | json }}</pre>
+            <br> <br>
+            <div rz-slider
+                floor="0"
+                ceil="450"
+                model="priceSlider2"
+                translate="translate"></div>
 
-    <br/>
+            <pre>{{ priceSlider2 | json }}</pre>
+            <br> <br>
+            <div rz-slider
+                model="priceSlider3"
+                floor="50"
+                ceil="450"></div>
 
-    <rzslider
-            rz-slider-floor="priceSlider.floor"
-            rz-slider-ceil="priceSlider.ceil"
-            rz-slider-model="priceSlider.min"
-            rz-slider-high="priceSlider.max"
-            rz-slider-step="1"></rzslider>
-    <br> <br> <br>
+            <br><br><br>
 
-    <pre>{{ priceSlider2 | json }}</pre>
-    <br> <br>
-    <rzslider
-            rz-slider-floor="0"
-            rz-slider-ceil="450"
-            rz-slider-model="priceSlider2"
-            rz-slider-translate="translate"></rzslider>
+            <pre>{{ alphabetTranslate(letter) }}</pre>
 
-    <pre>{{ priceSlider2 | json }}</pre>
-    <br> <br>
-    <rzslider rz-slider-model="priceSlider3"
-            rz-slider-floor="50"
-            rz-slider-ceil="450"></rzslider>
+            <br><br>
 
-    <br><br><br>
+            <div rz-slider
+                floor="0"
+                ceil="letterMax"
+                model="letter"
+                translate="alphabetTranslate"></div>
+        </div>
+    </body>
 
-    <pre>{{ alphabetTranslate(letter) }}</pre>
+    <script>
+        var app = angular.module('plunker', ['angularjsSlider']);
 
-    <br><br>
-
-    <rzslider
-            rz-slider-floor="0"
-            rz-slider-ceil="letterMax"
-            rz-slider-model="letter"
-            rz-slider-translate="alphabetTranslate"></rzslider>
-
-</div>
-</body>
-
-<script>
-    var app = angular.module('plunker', ['rzModule']);
-
-    app.controller('MainCtrl', function($scope)
-    {
-        $scope.priceSlider = {
-            min: 4,
-            max: 481,
-            ceil: 500,
-            floor: 0
-        };
-
-        $scope.priceSlider2 = 150;
-        $scope.priceSlider3 = 250;
-
-        $scope.translate = function(value)
+        app.controller('MainCtrl', function($scope)
         {
-            return '$' + value;
-        };
+            $scope.priceSlider = {
+                min: 4,
+                max: 481,
+                ceil: 500,
+                floor: 0
+            };
 
-        var alphabetArray = 'abcdefghijklmnopqrstuvwxyz'.split('');
-        $scope.letter = 5;
-        $scope.letterMax = alphabetArray.length - 1;
-        $scope.alphabetTranslate = function(value)
-        {
-            return alphabetArray[value].toUpperCase();
-        };
-    });
-</script>
+            $scope.priceSlider2 = 150;
+            $scope.priceSlider3 = 250;
 
+            $scope.translate = function(value)
+            {
+                return '$' + value;
+            };
+
+            var alphabetArray = 'abcdefghijklmnopqrstuvwxyz'.split('');
+            $scope.letter = 5;
+            $scope.letterMax = alphabetArray.length - 1;
+            $scope.alphabetTranslate = function(value)
+            {
+                return alphabetArray[value].toUpperCase();
+            };
+        });
+    </script>
 </html>

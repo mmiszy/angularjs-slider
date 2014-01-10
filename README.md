@@ -7,6 +7,7 @@ Slider directive implementation for AngularJS, without any dependencies.
 - Well documented
 - Customizable
 - Simple to use
+- Works both as a tag and as an attribute
 
 ## Examples
 
@@ -19,24 +20,24 @@ $scope.priceSlider = 150;
 
 ```html
 <div>
-    <rzslider rz-slider-model="priceSlider"></rzslider>
+    <rz-slider model="priceSlider"></rz-slider>
 </div>
 ```
 
-Above example would render a slider from 0 to 150. If you need floor and ceiling values use `rz-slider-floor` and `rz-slider-ceil` attributes.
+Above example would render a slider from 0 to 150. If you need floor and ceiling values use `floor` and `ceil` attributes.
 
 ```html
 <div>
-    <rzslider
-         rz-slider-model="priceSlider"
-         rz-slider-ceil="450"></rzslider>
+    <rz-slider
+         model="priceSlider"
+         ceil="450"></rz-slider>
 
     <!-- OR -->
 
-    <rzslider
-         rz-slider-model="priceSlider"
-         rz-slider-floor="0"
-         rz-slider-ceil="450"></rzslider>
+    <rz-slider
+         model="priceSlider"
+         floor="0"
+         ceil="450"></rz-slider>
 
 </div>
 ```
@@ -54,40 +55,40 @@ $scope.priceSlider = {
 ```
 
 ```html
-<rzslider
-    rz-slider-floor="priceSlider.floor"
-    rz-slider-ceil="priceSlider.ceil"
-    rz-slider-model="priceSlider.min"
-    rz-slider-high="priceSlider.max"></rzslider>
+<rz-slider
+    floor="priceSlider.floor"
+    ceil="priceSlider.ceil"
+    model="priceSlider.min"
+    high="priceSlider.max"></rz-slider>
 ```
 
 ## Directive attributes
 
-**rz-slider-model**
+**model**
 
-> Model for low value slider. If only _rz-slider-model_ is provided single slider will be rendered.
+> Model for low value slider. If only _model_ is provided single slider will be rendered.
 
-**rz-slider-high**
+**high**
 
-> Model for high value slider. Providing both _rz-slider-high_ and _rz-slider-model_ will render range slider.
+> Model for high value slider. Providing both _high_ and _model_ will render range slider.
 
-**rz-slider-floor**
+**floor**
 
 > Minimum value for a slider.
 
-**rz-slider-ceil**
+**ceil**
 
 > Maximum value for a slider.
 
-**rz-slider-step**
+**step**
 
 > slider step.
 
-**rz-slider-precision**
+**precision**
 
 > The precision to display values with. The `toFixed()` is used internally for this.
 
-**rz-slider-translate**
+**translate**
 
 > Custom translate function. Use this if you want to translate values displayed on the slider. For example if you want to display dollar amounts instead of just numbers do this:
 
@@ -108,12 +109,12 @@ $scope.translate = function(value)
 ```
 
 ```html
-<rzslider
-    rz-slider-floor="priceSlider.floor"
-    rz-slider-ceil="priceSlider.ceil"
-    rz-slider-model="priceSlider.min"
-    rz-slider-high="priceSlider.max"
-    rz-slider-translate="translate"></rzslider>
+<rz-slider
+    floor="priceSlider.floor"
+    ceil="priceSlider.ceil"
+    model="priceSlider.min"
+    high="priceSlider.max"
+    translate="translate"></rz-slider>
 ```
 
 ## Plunker example
@@ -124,10 +125,10 @@ $scope.translate = function(value)
 
 ```html
     <script src="/path/to/angularjs/angular.min.js"></script>
-    <script src="/path/to/slider/rzslider.min.js"></script>
+    <script src="/path/to/angularjs-slider/angularjs-slider.min.js"></script>
 
     <script>
-        var YourApp = angular.module('myapp', ['rzModule']);
+        var YourApp = angular.module('myapp', ['angularjsSlider']);
     </script>
 ```
 

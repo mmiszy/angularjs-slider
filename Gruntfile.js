@@ -14,9 +14,9 @@ module.exports = function (grunt)
         compile: true
       },
 
-      slider: {
-        src: ['rzslider.less'],
-        dest: 'dist/rzslider.css'
+      rzSlider: {
+        src: ['angularjs-slider.less'],
+        dest: 'dist/angularjs-slider.css'
       },
 
       min: {
@@ -24,8 +24,8 @@ module.exports = function (grunt)
           compress: true,
           banner: '<%= minBanner %>'
         },
-        src: ['dist/rzslider.css'],
-        dest: 'dist/rzslider.min.css'
+        src: ['dist/angularjs-slider.css'],
+        dest: 'dist/angularjs-slider.min.css'
       }
     },
 
@@ -34,10 +34,10 @@ module.exports = function (grunt)
         report: 'min',
         banner: '<%= minBanner %>'
       },
-      rzslider: {
+      rzSlider: {
         files: {
-          'dist/rzslider.min.js': [
-            'rzslider.js'
+          'dist/angularjs-slider.min.js': [
+            'angularjs-slider.js'
           ]
         }
       }

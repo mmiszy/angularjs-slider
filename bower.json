@@ -6,7 +6,7 @@
     "Rafal Zajac <rzajac@gmail.com>"
   ],
   "description": "AngularJS slider directive with no external dependencies. Mobile friendly!",
-  "main": "rzslider.js",
+  "main": "angularjs-slider.js",
   "keywords": [
     "angularjs",
     "slider"
