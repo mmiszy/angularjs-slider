@@ -13,87 +13,92 @@
   border-radius: @radius;
 }
 
-@handleActiveColor: #67b700;
-@handleHoverColor: #67b700;
-@labelTextColor: #67b700;
+@handleActiveColor: #99B9D4;
+@handleHoverColor: #99B9D4;
+@labelTextColor: #666;
 @handleBgColor: #fff;
 @handleInnerColor: #71818e;
+@handleBorderColor: #779EC1;
 @limitLabelTextColor: @labelTextColor;
 
-rzslider {
+rzslider, [rzslider] {
   display: inline-block;
   position: relative;
-  height: 2px;
+  height: 7px;
   width: 100%;
-  margin: 30px 0 15px 0;
+  margin: 25px 0 10px 0;
   vertical-align: middle;
-}
 
-rzslider span {
-  white-space: nowrap;
-  position: absolute;
-  display: inline-block;
-}
+  span {
+    white-space: nowrap;
+    position: absolute;
+    display: inline-block;
+  }
 
-rzslider span.base {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-}
+  span.base {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
 
-rzslider span.bar {
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background: #fff;
-}
+  span.bar {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: #99B9D4;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
 
-rzslider span.bar.selection {
-  width: 0%;
-  z-index: 1;
-  background: #67b700;
-}
+  span.bar.selection {
+    width: 0%;
+    z-index: 1;
+    background: #779EC1;
+  }
 
-rzslider span.pointer {
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  top: -15px;
-  background-color: @handleBgColor;
-  z-index: 2;
-  .rounded(16px);
-}
+  span.pointer {
+    top: -8px;
+    z-index: 2;
+    width: 10px;
+    height: 20px;
+    cursor: pointer;
+    background-color: #ffffff;
+    -webkit-border-radius: 7px 7px 0 0;
+    border-radius: 7px 7px 0 0;
+    background-color: @handleBgColor;
+    border: 1px solid @handleBorderColor;
+  }
 
-rzslider span.pointer:after {
-  content: '';
-  width: 8px;
-  height: 8px;
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  .rounded(4px);
-  background: @handleInnerColor;
-}
+  span.pointer:after {
+    content: "";
+    height: 20px;
+    left: 4.5px;
+    position: absolute;
+    width: 1px;
+    .rounded(4px);
+    background: @handleInnerColor;
+  }
 
-rzslider span.pointer:hover:after {
-  background-color: @handleHoverColor;
-}
+  span.pointer:hover:after {
+    background-color: @handleHoverColor;
+  }
 
-rzslider span.pointer.active:after {
-  background-color: @handleActiveColor;
-}
+  span.pointer.active:after {
+    background-color: @handleActiveColor;
+  }
 
-rzslider span.bubble {
-  cursor: default;
-  top: -32px;
-  padding: 1px 3px 1px 3px;
-  color: @labelTextColor;
-}
+  span.bubble {
+    cursor: default;
+    top: -32px;
+    padding: 1px 3px 1px 3px;
+    color: @labelTextColor;
+  }
 
-rzslider span.bubble.selection {
-  top: 15px;
-}
+  span.bubble.selection {
+    top: 15px;
+  }
 
-rzslider span.bubble.limit {
-  color: @limitLabelTextColor;
+  span.bubble.limit {
+    color: @limitLabelTextColor;
+  }
 }
