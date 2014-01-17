@@ -232,7 +232,7 @@ function throttle(func, wait, options) {
           self.updateCmbLabel();
         }
 
-      }, 350, { leading: false });
+      }, 50, { leading: false });
 
       var thrHigh = throttle(function()
       {
@@ -240,7 +240,7 @@ function throttle(func, wait, options) {
         self.updateHighHandle(self.valueToOffset(self.scope.high));
         self.updateSelectionBar();
         self.updateCmbLabel();
-      }, 350, { leading: false });
+      }, 50, { leading: false });
 
       this.scope.$watch('model', function(newValue, oldValue)
       {
@@ -251,6 +251,24 @@ function throttle(func, wait, options) {
       this.scope.$watch('high', function(newValue, oldValue)
       {
         if(newValue === oldValue) return;
+        thrHigh();
+      });
+
+      this.scope.$watch('floor', function(newValue, oldValue)
+      {
+        if(newValue === oldValue) return;
+        self.updateFloorLab();
+        // Update the handles' positions.
+        thrLow();
+        thrHigh();
+      });
+
+      this.scope.$watch('ceil', function(newValue, oldValue)
+      {
+        if(newValue === oldValue) return;
+        self.updateCeilLab();
+        // Update the handles' positions.
+        thrLow();
         thrHigh();
       });
     },
@@ -289,7 +307,7 @@ function throttle(func, wait, options) {
       var valStr = this.customTrFn && useCustomTr ? '' + this.customTrFn(value) : '' + value,
         getWidth = false;
 
-      if(label.rzsv === undefined || label.rzsv.length != valStr.length)
+      if(label.rzsv === undefined || label.rzsv != valStr)
       {
         getWidth = true;
         label.rzsv = valStr;
