@@ -119,7 +119,7 @@ $scope.translate = function(value)
 
 ## Plunker example
 
-[http://embed.plnkr.co/53AUdB/preview](http://embed.plnkr.co/53AUdB/preview)
+[http://run.plnkr.co/plunks/PfAdNc/](http://run.plnkr.co/plunks/PfAdNc/)
 
 ## Project integration
 
