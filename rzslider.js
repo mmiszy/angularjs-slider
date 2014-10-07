@@ -4,7 +4,7 @@
  * (c) Rafal Zajac <rzajac@gmail.com>
  * http://github.com/rzajac/angularjs-slider
  *
- * Version: v0.1.3
+ * Version: v0.1.6
  *
  * Licensed under the MIT license
  */
@@ -778,6 +778,14 @@ function throttle(func, wait, options) {
 
       this.minH.on('touchstart', angular.bind(this, this.onStart, this.minH, 'rzSliderModel'));
       if(this.range) { this.maxH.on('touchstart', angular.bind(this, this.onStart, this.maxH, 'rzSliderHigh')) }
+
+      this.sliderElem.on('touchstart', function (e) {
+        e.stopPropagation();
+      });
+
+      this.sliderElem.on('mousedown', function (e) {
+        e.stopPropagation();
+      });
     },
 
     /**

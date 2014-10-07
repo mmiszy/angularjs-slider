@@ -141,17 +141,21 @@ You can also force redraw with **rzSliderForceRender** event.
 
 ## Changelog
 
-**v0.1.3**
+**v0.1.6**
 
-    Forked from this version.
-
-**v0.1.4**
-
-    Touch events were broken if jQuery was used with Angular instead of jQuery lite. This version fixes them (Jusas).
+    Preventing event propagation when swiping over the slider
 
 **v0.1.5**
 
     Added 'slideEnded' event emitted on slider knob dragging ended (Jusas).
+
+**v0.1.4**
+
+    Touch events were broken if jQuery was used with Angular instead of jQuery lite. This version fixes them (Jusas).
+    
+**v0.1.3**
+    
+    Forked from this version.
 
 ## Disclaimer
 
